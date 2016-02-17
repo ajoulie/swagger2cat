@@ -33,14 +33,14 @@ puts t.sort
 r = Tree::Root.new($json)
 r.service("kubernetes")
 
-%w(endpoints events limitranges podtemplates secrets serviceaccounts services).each do |resource|
+%w(endpoints events limitranges persistentvolumeclaims podtemplates secrets serviceaccounts services).each do |resource|
   puts "generating #{resource}"
   pathes = $json["apis"].select do |api|
-    ["/api/v1/namespaces/{namespace}/#{resource}/{name}", "/api/v1/namespaces/{namespace}/#{resource}"].include?(api["path"])
+    api["path"].match(/\/api\/v1\/namespaces\/{namespace}\/#{resource}/)
   end
   model_id=pathes.first["operations"].find {|o| o["method"] == "POST"}["parameters"].find{|p| p["paramType"] == "body"}["type"]
   model = media_types[model_id]
-  r.type(resource[0..-2], pathes, model)
+  r.type(resource, pathes, model)
 end
 
 puts r.to_s

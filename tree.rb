@@ -11,12 +11,13 @@ require './tree/fields'
 require './tree/field'
 require './tree/output'
 require './tree/actions'
-require './tree/action'
+require './tree/action_custom'
+require './tree/action_crud'
 require './tree/href'
+require './tree/path'
 
 module Tree
   attr_final_class("Host")
-  attr_final_class("Path")
   attr_final_class("NoCertCheck")
   attr_final_class("Required")
 end

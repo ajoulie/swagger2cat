@@ -4,9 +4,11 @@ module Tree
   class Type < Tree::Base
     include Tree::Block
 
-    def initialize(value, json, model)
-      super(value)
+    def initialize(resource, json, model)
       @json= json
+      @resource = resource
+
+      super(resource[0..-2])
 
       href(json.last['path'])
       fields(model)
@@ -27,7 +29,7 @@ module Tree
     end
 
     def actions
-      add Tree::Actions.new(@json.map{|j| j["operations"]}.flatten)
+      add Tree::Actions.new(@json, @resource)
     end
   end
 end
