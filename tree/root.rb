@@ -11,8 +11,8 @@ module Tree
       add Tree::Service.new(value, @json)
     end
 
-    def type(value, types_json, model)
-      type = Tree::Type.new(value, types_json, model)
+    def type(value, types_json, model, prefix = nil)
+      type = Tree::Type.new(value, types_json, model, prefix)
       add type
     end
 

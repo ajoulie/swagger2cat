@@ -4,16 +4,24 @@ module Tree
   class Type < Tree::Base
     include Tree::Block
 
-    def initialize(resource, json, model)
+    def initialize(resource, json, model, prefix=nil)
       @json= json
       @resource = resource
 
-      super(resource[0..-2])
+      name = [prefix, resource[0..-2]].compact.join("_")
+      super(name)
 
       href(json.last['path'])
-      fields(model)
-      output(model)
+      fields(model) if model
+      output(model) if model
       actions
+    end
+
+    def to_s(*args)
+      cat = [""]
+      cat << super
+      cat.flatten
+
     end
 
     def href(value)

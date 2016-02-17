@@ -29,7 +29,7 @@ module Tree
             "show"
           end
         else
-          raise "Unknown verb #{operation["method"]}"
+          nil
         end
       end
     end

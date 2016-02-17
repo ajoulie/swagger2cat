@@ -2,6 +2,7 @@
 
 require 'json'
 require './tree'
+require "./kubernetes"
 
 $json = JSON.parse(File.read("kubernetes_api.json"))
 
@@ -18,7 +19,6 @@ end
 
 
 #puts
-media_types = $json['models']
 #puts media_types.select{|name, mt| mt["properties"].has_key?("items")}.keys
 #puts
 #puts media_types.keys.select{|mt_name| mt_name.match(/List$/)}
@@ -30,18 +30,5 @@ end
 puts t.sort
 
 
-r = Tree::Root.new($json)
-r.service("kubernetes")
-
-%w(endpoints events limitranges persistentvolumeclaims podtemplates secrets serviceaccounts services).each do |resource|
-  puts "generating #{resource}"
-  pathes = $json["apis"].select do |api|
-    api["path"].match(/\/api\/v1\/namespaces\/{namespace}\/#{resource}/)
-  end
-  model_id=pathes.first["operations"].find {|o| o["method"] == "POST"}["parameters"].find{|p| p["paramType"] == "body"}["type"]
-  model = media_types[model_id]
-  r.type(resource, pathes, model)
-end
-
-puts r.to_s
-
+k = Kubernetes.new($json)
+puts k.to_s
