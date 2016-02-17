@@ -6,6 +6,14 @@ module Tree
     include Tree::Meth::Comment
     include Tree::Block
 
+    def initialize(value, json)
+      super(value)
+      comment "My first service is #{value}"
+      host(json["basePath"])
+      path(json["resourcePath"])
+      no_cert_check(false)
+    end
+
     def host(value)
       add Tree::Host.new(value)
     end

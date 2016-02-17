@@ -1,7 +1,11 @@
+require_relative 'meth/comment'
 module Tree
   class Base
+    include Tree::Meth::Comment
+
     def initialize(value)
       @value = value
+      @children = []
     end
 
     def add(child)
@@ -12,9 +16,10 @@ module Tree
 
     attr_reader :value
 
+    protected
     def cat_key
-      # Mainly underscore name
-      name.gsub(/::/, '/').
+      # Mainly demodularize and underscore class name
+      self.class.name.split("::").last.
           gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
           gsub(/([a-z\d])([A-Z])/,'\1_\2').
           tr("-", "_").

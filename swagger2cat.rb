@@ -1,76 +1,27 @@
 #!/usr/bin/env ruby
 
 require 'json'
+require './tree'
 
-#require './tree'
 $json = JSON.parse(File.read("kubernetes_api.json"))
-
-#file = File.open("kubernetes_namespace.cat", "w")
-
-#def swaggerGeneration(version)
-#  comment "CAT namespace file generated with swagger2CAT"
-#  comment "from swagger specification #{version}"
-#end
-#
-#def comment(com)
-#  $cat << "# #{com}"
-#end
-#
-#def service(name)
-#  $cat << "service #{name} do"
-#  yield
-#  $cat <<  "end"
-#end
-#
-#def host(value)
-#  $cat << "  host \"#{value}\""
-#end
-#
-#def no_cert_check(value)
-#  $cat << "  no_cert_check \"#{value}\""
-#end
-#
-#def path(value)
-#  $cat << "  path \"#{value}\""
-#end
-#
-#puts
-#swaggerGeneration($json["swaggerVersion"])
-#
-#service("kubernetes") do |service|
-#  host($json["basePath"])
-#  path($json["resourcePath"])
-#  no_cert_check(false)
-#end
-
-#puts $cat.join("\n")
 
 $cat = []
 %w(swaggerVersion apiVersion basePath resourcePath).each do |k|
   puts "#{k} : #{$json[k].inspect}"
 end
 
-puts $json["models"].size
-puts $json["apis"].size
+#puts $json["models"].size
+#puts $json["apis"].size
+#
+#puts $json["apis"].first.keys.inspect
+#puts $json["apis"].first.to_json
 
-puts $json["apis"].first.keys.inspect
-puts $json["apis"].first.to_json
 
-
-puts
-require './tree'
-require './tree/service'
-r = Tree::Root.new
-r.comment "CAT namespace file generated with swagger2CAT"
-r.comment "from swagger specification #{$json["swaggerVersion"]}"
-r.service("kubernetes") do |serv|
-  serv.comment "My first service is #{serv.value}"
-  serv.host($json["basePath"])
-  serv.path($json["resourcePath"])
-  serv.no_cert_check(false)
-end
-
-puts r.to_s
+#puts
+media_types = $json['models']
+#puts media_types.select{|name, mt| mt["properties"].has_key?("items")}.keys
+#puts
+#puts media_types.keys.select{|mt_name| mt_name.match(/List$/)}
 
 puts "\n\n"
 t = $json["apis"].map do |api|
@@ -78,4 +29,19 @@ t = $json["apis"].map do |api|
 end
 puts t.sort
 
+
+r = Tree::Root.new($json)
+r.service("kubernetes")
+
+%w(endpoints events limitranges podtemplates secrets serviceaccounts services).each do |resource|
+  puts "generating #{resource}"
+  pathes = $json["apis"].select do |api|
+    ["/api/v1/namespaces/{namespace}/#{resource}/{name}", "/api/v1/namespaces/{namespace}/#{resource}"].include?(api["path"])
+  end
+  model_id=pathes.first["operations"].find {|o| o["method"] == "POST"}["parameters"].find{|p| p["paramType"] == "body"}["type"]
+  model = media_types[model_id]
+  r.type(resource[0..-2], pathes, model)
+end
+
+puts r.to_s
 

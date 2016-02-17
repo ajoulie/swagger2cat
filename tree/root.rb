@@ -1,15 +1,19 @@
-require_relative 'meth/comment'
 module Tree
   class Root < Base
-    include Tree::Meth::Comment
 
-    def initialize
+    def initialize(json)
+      @json = json
+      comment "CAT namespace file generated with swagger2CAT"
+      comment "from swagger specification #{json["swaggerVersion"]}"
     end
 
     def service(value)
-      serv = Tree::Service.new(value)
-      add serv
-      yield(serv)
+      add Tree::Service.new(value, @json)
+    end
+
+    def type(value, types_json, model)
+      type = Tree::Type.new(value, types_json, model)
+      add type
     end
 
     def to_s
