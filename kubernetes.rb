@@ -5,10 +5,6 @@ class Kubernetes
     @cat.service
 
     Groups.each {|group| add_all(group)}
-
-    #add_namespaced
-    #add_root
-    #add_others
   end
 
   def to_s
@@ -41,40 +37,6 @@ class Kubernetes
       add_pathes(resource, pathes, config[:prefix])
     end
   end
-
-  #def add_namespaced
-  #  .each do |resource|
-  #    puts "generating #{resource}"
-  #    pathes = spec["apis"].select do |api|
-  #      api["path"].match()
-  #    end
-  #    next if pathes.empty?
-  #    add_pathes(resource, pathes, "namespace")
-  #  end
-  #end
-
-  #def add_root
-  #  %w().each do |resource|
-  #    puts "generating #{resource}"
-  #    pathes = spec["apis"].select do |api|
-  #      api["path"].match()
-  #    end
-  #    next if pathes.empty?
-
-  #    add_pathes(resource, pathes)
-  #  end
-  #end
-
-  #def add_others
-  #  .each do |resource|
-  #    puts "generating #{resource}"
-  #    pathes = spec["apis"].select do |api|
-  #      api["path"].match(/\/api\/v1\/proxy\/namespaces\/{namespace}\/#{resource}|\/api\/v1\/proxy\/#{resource}/)
-  #    end
-  #    next if pathes.empty?
-  #    add_pathes(resource, pathes, "proxy")
-  #  end
-  #end
 
   def add_pathes(resource, pathes, prefix = nil)
     media_types = spec['models']
