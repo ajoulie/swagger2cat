@@ -61,6 +61,9 @@ module Tree
 
     class Type < Tree::Base
       include Tree::Final
+      def initialize(value)
+        super(value.gsub('.', '_'))
+      end
     end
 
     class Verb < Tree::Base
