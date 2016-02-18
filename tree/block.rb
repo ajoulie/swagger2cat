@@ -2,7 +2,8 @@ module Tree
   module Block
     def to_s(tab = 0)
       cat = []
-      cat << "#{' '*tab*2}#{cat_key} \"#{@value}\" do"
+      value = @value ? "\"#{@value}\"" : ""
+      cat << "#{' '*tab*2}#{cat_key} #{value} do"
       cat << @children.map{|c| c.to_s(tab + 1)}
       cat << "#{' '*tab*2}end"
       cat

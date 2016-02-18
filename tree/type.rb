@@ -11,7 +11,6 @@ module Tree
       name = [prefix, resource[0..-2]].compact.join("_")
       super(name)
 
-      href(json.last['path'])
       fields(model) if model
       output(model) if model
       actions

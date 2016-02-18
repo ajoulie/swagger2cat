@@ -1,8 +1,8 @@
 class Kubernetes
   def initialize(spec)
     @spec = spec
-    @cat = Tree::Root.new(spec)
-    @cat.service("kubernetes")
+    @cat = Tree::Namespace.new("kubernetes", spec)
+    @cat.service
 
     Groups.each {|group| add_all(group)}
 
