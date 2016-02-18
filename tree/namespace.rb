@@ -6,6 +6,7 @@ module Tree
       @specs = specs
       comment "CAT namespace file generated with swagger2CAT"
       comment "from swagger specification #{specs["swaggerVersion"]}"
+      comment "My first namespace is #{value}"
     end
 
     def service

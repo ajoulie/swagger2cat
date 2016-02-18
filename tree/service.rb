@@ -9,7 +9,6 @@ module Tree
     def initialize(json)
       super(value)
 
-      comment "My first service is #{value}"
       host(json["basePath"])
       path(json["resourcePath"])
       no_cert_check(false)
