@@ -14,7 +14,7 @@ module Tree
     end
     alias_method :<<, :add
 
-    attr_reader :value
+    attr_reader :value, :children
 
     protected
     def cat_key

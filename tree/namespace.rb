@@ -4,9 +4,7 @@ module Tree
 
     def initialize(value, specs)
       @specs = specs
-      comment "CAT namespace file generated with swagger2CAT"
-      comment "from swagger specification #{specs["swaggerVersion"]}"
-      comment "My first namespace is #{value}"
+      @value = value
     end
 
     def service

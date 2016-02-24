@@ -5,6 +5,7 @@ class Kubernetes
     @cat.service
 
     Groups.each {|group| add_all(group)}
+    add_kubernetes_custom
   end
 
   def to_s
@@ -48,5 +49,12 @@ class Kubernetes
       model= media_types[create_operation["type"]]
     end
     cat.type(resource, pathes, model, prefix)
+  end
+
+  def add_kubernetes_custom
+    types = @cat.children.select {|child| child.is_a?(Tree::Type)}
+    types.each do |type|
+      type.output({"properties" => {"metadata.namespace" => ""}})
+    end
   end
 end
