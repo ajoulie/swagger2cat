@@ -69,7 +69,10 @@ class Kubernetes
   def add_kubernetes_custom
     types = @cat.children.select {|child| child.is_a?(Tree::Type)}
     types.each do |type|
-      type.output({"properties" => {"metadata.namespace" => ""}})
+      output = type.children.find{|c| c.is_a?(Tree::Output)}
+      next unless output
+
+      output.instance_variable_set("@value", output.value + ["metadata.namespace"])
     end
   end
 end
