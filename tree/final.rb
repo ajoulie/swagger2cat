@@ -18,7 +18,7 @@ module Tree
   module Final
     def to_s(tab = 0)
       case value
-      when TrueClass, FalseClass
+      when TrueClass, FalseClass, Integer
         "#{' '*tab*2}#{cat_key} #{@value}"
       else
         "#{' '*tab*2}#{cat_key} \"#{@value}\""

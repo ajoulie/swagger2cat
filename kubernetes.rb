@@ -1,15 +1,30 @@
 class Kubernetes
+  include Tree::Meth::Comment
   def initialize(spec)
     @spec = spec
+    @children = []
+    add Tree::Name.new("Kubernetes Namespace")
+    add Tree::RsCaVer.new(20160209)
+    add Tree::ShortDescription.new("Namespace for interacting with Kubernetes")
+
+    comment "CAT namespace file generated with swagger2CAT"
+    comment "from swagger specification #{spec["swaggerVersion"]}"
+    comment "My first namespace is Kubernetes"
+
     @cat = Tree::Namespace.new("kubernetes", spec)
     @cat.service
+    add @cat
 
     Groups.each {|group| add_all(group)}
     add_kubernetes_custom
   end
 
-  def to_s
-    @cat.to_s
+  def add(child)
+    @children << child
+  end
+
+  def to_s(tab = 0)
+    @children.map{|c| c.to_s}
   end
 
   private
