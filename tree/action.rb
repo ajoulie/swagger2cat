@@ -3,6 +3,7 @@ require_relative 'block'
 module Tree
   class Action < Tree::Base
     include Tree::Block
+    include Meth::Comment
 
     def initialize(operation, path, name= nil)
       @operation = operation
@@ -10,6 +11,7 @@ module Tree
 
       super(name)
 
+      comment(operation["summary"]) unless operation["summary"].empty?
       verb(operation["method"])
       path(path)
       type(operation["type"])
