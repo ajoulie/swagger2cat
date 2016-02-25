@@ -11,7 +11,7 @@ class Kubernetes
     comment "from swagger specification #{spec["swaggerVersion"]}"
     comment "My first namespace is Kubernetes"
 
-    @cat = Tree::Namespace.new("kubernetes", spec)
+    @cat = Tree::Node::Namespace.new("kubernetes", spec)
     @cat.service
     add @cat
 
@@ -67,9 +67,9 @@ class Kubernetes
   end
 
   def add_kubernetes_custom
-    types = @cat.children.select {|child| child.is_a?(Tree::Type)}
+    types = @cat.children.select {|child| child.is_a?(Tree::Node::Type)}
     types.each do |type|
-      output = type.children.find{|c| c.is_a?(Tree::Output)}
+      output = type.children.find{|c| c.is_a?(Tree::Node::Output)}
       next unless output
 
       output.instance_variable_set("@value", output.value + ["metadata.namespace"])

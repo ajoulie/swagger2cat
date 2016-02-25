@@ -1,18 +1,6 @@
+require './tree/meth'
 require './tree/shape'
-require './tree/base'
-require './tree/namespace'
-require './tree/comment'
-require './tree/service'
-require './tree/type'
-require './tree/fields'
-require './tree/field'
-require './tree/output'
-require './tree/actions'
-require './tree/action'
-require './tree/action_custom'
-require './tree/action_crud'
-require './tree/href'
-require './tree/path'
+require './tree/node'
 
 module Tree
   attr_final_class("Host")

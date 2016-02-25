@@ -4,7 +4,7 @@ module Tree
   end
 
   def self.attr_final_class(name)
-    klass = Class.new(Base) do
+    klass = Class.new(Node::Base) do
       include Shape::Final
     end
     Tree.const_set(name, klass)
