@@ -5,7 +5,7 @@ module Tree
 
   def self.attr_final_class(name)
     klass = Class.new(Base) do
-      include Final
+      include Shape::Final
     end
     Tree.const_set(name, klass)
   end
@@ -15,15 +15,16 @@ module Tree
       Tree.const_get(name).new(value)
     end
   end
-  module Final
-    def to_s(tab = 0)
-      case value
-      when TrueClass, FalseClass, Integer
-        "#{' '*tab*2}#{cat_key} #{@value}"
-      else
-        "#{' '*tab*2}#{cat_key} \"#{@value}\""
+  module Shape
+    module Final
+      def to_s(tab = 0)
+        case value
+        when TrueClass, FalseClass, Integer
+          "#{' '*tab*2}#{cat_key} #{@value}"
+        else
+          "#{' '*tab*2}#{cat_key} \"#{@value}\""
+        end
       end
     end
   end
-
 end

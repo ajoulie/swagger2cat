@@ -1,8 +1,6 @@
-require_relative 'block'
-
 module Tree
   class ActionCustom < Tree::Base
-    include Tree::Block
+    include Tree::Shape::Block
 
     def initialize(api, operation_name)
       operation = api["operations"].first
@@ -30,11 +28,11 @@ module Tree
     end
 
     class Type < Tree::Base
-      include Tree::Final
+      include Tree::Shape::Final
     end
 
     class Verb < Tree::Base
-      include Tree::Final
+      include Tree::Shape::Final
     end
   end
 end

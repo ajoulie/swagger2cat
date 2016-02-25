@@ -1,8 +1,6 @@
-require_relative 'block'
-
 module Tree
   class Field < Tree::Base
-    include Tree::Block
+    include Tree::Shape::Block
 
     def initialize(value, json)
       super(value)

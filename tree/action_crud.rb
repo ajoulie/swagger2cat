@@ -1,8 +1,6 @@
-require_relative 'block'
-
 module Tree
   class ActionCRUD < Tree::Base
-    include Tree::FinalMultiple
+    include Tree::Shape::FinalMultiple
 
     def initialize(operations)
 

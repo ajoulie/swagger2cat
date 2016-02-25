@@ -1,6 +1,6 @@
 module Tree
   class Actions < Tree::Base
-    include Tree::Sequence
+    include Tree::Shape::Sequence
 
     ACTION_REGEXP = /^[a-zA-Z0-9]+$/
 

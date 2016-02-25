@@ -1,6 +1,6 @@
 module Tree
   class Namespace < Base
-    include Tree::Block
+    include Tree::Shape::Block
 
     def initialize(value, specs)
       @specs = specs

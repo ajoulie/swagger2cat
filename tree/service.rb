@@ -1,10 +1,9 @@
 require_relative 'meth/comment'
-require_relative 'block'
 
 module Tree
   class Service < Tree::Base
     include Tree::Meth::Comment
-    include Tree::Block
+    include Tree::Shape::Block
 
     def initialize(json)
       super(value)

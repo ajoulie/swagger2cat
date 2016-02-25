@@ -2,7 +2,7 @@ require './lib/json_object'
 
 module Tree
   class Fields < Tree::Base
-    include Tree::Sequence
+    include Tree::Shape::Sequence
 
     def initialize(json)
       super("")

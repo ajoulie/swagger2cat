@@ -1,8 +1,6 @@
-require_relative 'block'
-
 module Tree
   class Action < Tree::Base
-    include Tree::Block
+    include Tree::Shape::Block
     include Meth::Comment
 
     def initialize(operation, path, name= nil)
@@ -62,14 +60,14 @@ module Tree
     end
 
     class Type < Tree::Base
-      include Tree::Final
+      include Tree::Shape::Final
       def initialize(value)
         super(value.gsub('.', '_'))
       end
     end
 
     class Verb < Tree::Base
-      include Tree::Final
+      include Tree::Shape::Final
     end
   end
 end

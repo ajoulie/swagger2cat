@@ -1,8 +1,7 @@
-require_relative 'block'
 
 module Tree
   class Type < Tree::Base
-    include Tree::Block
+    include Tree::Shape::Block
 
     def initialize(resource, json, model, prefix=nil)
       @json= json
