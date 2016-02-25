@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'json'
-require './tree'
-require "./kubernetes"
+require './swagger2_cat'
+require "./beta_code/kubernetes"
 
 $json = JSON.parse(File.read("kubernetes_api.json"))
 
