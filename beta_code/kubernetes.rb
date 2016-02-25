@@ -30,7 +30,7 @@ class Kubernetes
   private
   attr_reader :spec, :cat
   Groups = [{
-    endpoints: %w(endpoints events),
+    endpoints: %w(endpoints events limitranges persistentvolumeclaims pods podtemplates replicationcontrollers resourcequotas secrets serviceaccounts services ),
     prefix: "namespace",
     regexp: "\/api\/v1\/namespaces\/{namespace}\/:resource"
   },{
