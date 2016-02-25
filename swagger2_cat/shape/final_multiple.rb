@@ -1,4 +1,4 @@
-module Tree
+module Swagger2Cat
   module Shape
     module FinalMultiple
       def to_s(tab = 0)

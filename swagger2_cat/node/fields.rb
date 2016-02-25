@@ -1,6 +1,6 @@
 require './lib/json_object'
 
-module Tree
+module Swagger2Cat
   module Node
     class Fields < Base
       include Shape::Sequence

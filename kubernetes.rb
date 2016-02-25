@@ -1,17 +1,17 @@
 class Kubernetes
-  include Tree::Meth::Comment
+  include Swagger2Cat::Meth::Comment
   def initialize(spec)
     @spec = spec
     @children = []
-    add Tree::Name.new("Kubernetes Namespace")
-    add Tree::RsCaVer.new(20160209)
-    add Tree::ShortDescription.new("Namespace for interacting with Kubernetes")
+    add Swagger2Cat::Name.new("Kubernetes Namespace")
+    add Swagger2Cat::RsCaVer.new(20160209)
+    add Swagger2Cat::ShortDescription.new("Namespace for interacting with Kubernetes")
 
     comment "CAT namespace file generated with swagger2CAT"
     comment "from swagger specification #{spec["swaggerVersion"]}"
     comment "My first namespace is Kubernetes"
 
-    @cat = Tree::Node::Namespace.new("kubernetes", spec)
+    @cat = Swagger2Cat::Node::Namespace.new("kubernetes", spec)
     @cat.service
     add @cat
 
@@ -67,9 +67,9 @@ class Kubernetes
   end
 
   def add_kubernetes_custom
-    types = @cat.children.select {|child| child.is_a?(Tree::Node::Type)}
+    types = @cat.children.select {|child| child.is_a?(Swagger2Cat::Node::Type)}
     types.each do |type|
-      output = type.children.find{|c| c.is_a?(Tree::Node::Output)}
+      output = type.children.find{|c| c.is_a?(Swagger2Cat::Node::Output)}
       next unless output
 
       output.instance_variable_set("@value", output.value + ["metadata.namespace"])

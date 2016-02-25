@@ -1,4 +1,4 @@
-module Tree
+module Swagger2Cat
   module Node
     class Action < Base
       include Shape::Block

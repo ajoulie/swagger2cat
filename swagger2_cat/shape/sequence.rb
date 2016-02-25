@@ -1,4 +1,4 @@
-module Tree
+module Swagger2Cat
   module Shape
     module Sequence
       def to_s(tab = 0)

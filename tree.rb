@@ -1,8 +1,8 @@
-require './tree/meth'
-require './tree/shape'
-require './tree/node'
+require './swagger2_cat/meth'
+require './swagger2_cat/shape'
+require './swagger2_cat/node'
 
-module Tree
+module Swagger2Cat
   attr_final_class("Host")
   attr_final_class("NoCertCheck")
   attr_final_class("Required")

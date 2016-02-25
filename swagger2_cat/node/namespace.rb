@@ -1,4 +1,4 @@
-module Tree
+module Swagger2Cat
   module Node
     class Namespace < Base
       include Shape::Block

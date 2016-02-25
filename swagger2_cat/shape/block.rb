@@ -1,4 +1,4 @@
-module Tree
+module Swagger2Cat
   module Shape
     module Block
       def to_s(tab = 0)
@@ -28,12 +28,12 @@ module Tree
         end
       end
 
-      Tree.const_set(name, klass)
+      Swagger2Cat.const_set(name, klass)
     end
 
     def self.attr_block_meth(name)
-      Tree.define_singleton_method(name.downcase) do |value|
-        Tree.const_get(name).new(value)
+      Swagger2Cat.define_singleton_method(name.downcase) do |value|
+        Swagger2Cat.const_get(name).new(value)
       end
     end
   end

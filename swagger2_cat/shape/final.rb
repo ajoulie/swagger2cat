@@ -1,4 +1,4 @@
-module Tree
+module Swagger2Cat
   def self.attr_final(name)
     attr_final_class(name)
   end
@@ -7,12 +7,12 @@ module Tree
     klass = Class.new(Node::Base) do
       include Shape::Final
     end
-    Tree.const_set(name, klass)
+    Swagger2Cat.const_set(name, klass)
   end
 
   def self.attr_final_meth(name)
-    Tree.define_singleton_method(name.downcase) do |value|
-      Tree.const_get(name).new(value)
+    Swagger2Cat.define_singleton_method(name.downcase) do |value|
+      Swagger2Cat.const_get(name).new(value)
     end
   end
   module Shape

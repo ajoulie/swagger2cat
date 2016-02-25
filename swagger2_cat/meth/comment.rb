@@ -1,4 +1,4 @@
-module Tree
+module Swagger2Cat
   module Meth
     module Comment
       def comment(value)

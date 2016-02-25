@@ -1,4 +1,4 @@
-module Tree
+module Swagger2Cat
   module Node
     class Base
       include Meth::Comment
