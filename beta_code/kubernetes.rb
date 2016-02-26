@@ -45,7 +45,7 @@ class Kubernetes
 
   def add_all(config)
     config[:endpoints].each do |resource|
-      puts "generating #{resource}"
+      puts "generating #{resource}" if ENV['DEBUG']
       pathes = spec["apis"].select do |api|
         api["path"].match(config[:regexp].gsub(":resource", resource))
       end
