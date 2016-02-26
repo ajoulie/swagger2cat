@@ -72,7 +72,7 @@ class Kubernetes
       output = type.children.find{|c| c.is_a?(Swagger2Cat::Node::Output)}
       next unless output
 
-      output.instance_variable_set("@value", output.value + ["metadata.namespace"])
+      output.instance_variable_set("@value", output.value + ["metadata.namespace", "metadata.name"])
     end
   end
 end
