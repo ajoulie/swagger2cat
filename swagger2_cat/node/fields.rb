@@ -5,26 +5,37 @@ module Swagger2Cat
     class Fields < Base
       include Shape::Sequence
 
-      def initialize(json)
+      def initialize(operation, model)
         super("")
-        @json= Swagger2CAT::JsonObject.new(json)
+        @model= Swagger2CAT::JsonObject.new(model || {})
+        @parameters = operation["parameters"]
         add_fields
       end
 
       def add_fields
-        required_fields.merge(other_fields).each do |key, field|
+        path_params.each do |param|
+          add Field.new(param["name"], param)
+        end
+
+        body_required_fields.merge(body_other_fields).each do |key, field|
           add Field.new(key, field)
         end
       end
 
-      def required_fields
-        required = @json.required([])
-        @json.properties.select{|key, _| required.include?(key)}.each{|k, v| v["required"] = true}
+      def path_params
+        parameters.select{|p| p["paramType"] == "path"}
       end
 
-      def other_fields
-        required = @json.required([])
-        @json.properties.select{|key, _| !required.include?(key)}.each{|k, v| v["required"] = false}
+      attr_reader :parameters, :model
+
+      def body_required_fields
+        required = model.required([])
+        model.properties({}).select{|key, _| required.include?(key)}.each{|k, v| v["required"] = true}
+      end
+
+      def body_other_fields
+        required = model.required([])
+        model.properties({}).select{|key, _| !required.include?(key)}.each{|k, v| v["required"] = false}
       end
     end
   end

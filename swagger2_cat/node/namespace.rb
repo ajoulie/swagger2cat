@@ -12,8 +12,8 @@ module Swagger2Cat
         add Service.new(@specs)
       end
 
-      def type(value, types_json, model, prefix = nil)
-        type = Type.new(value, types_json, model, prefix)
+      def type(value, types_json, model, create_operation, prefix = nil)
+        type = Type.new(value, types_json, model, create_operation, prefix)
         add type
       end
     end

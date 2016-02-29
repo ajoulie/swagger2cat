@@ -10,5 +10,6 @@ module Swagger2Cat
   attr_final_class("RsCaVer")
   attr_final_class("ShortDescription")
   attr_final_class("LongDescription")
+  attr_final_class("Location")
 end
 

@@ -4,9 +4,11 @@ module Swagger2Cat
       include Shape::Block
 
       def initialize(value, json)
+        @json = json
         super(value)
         type(json.fetch("type") {json.fetch("$ref")})
         required(true) if json["required"]
+        add_location
       end
 
       private
@@ -17,6 +19,15 @@ module Swagger2Cat
       def required(value)
         add Required.new(value)
       end
+
+      def add_location
+        add Location.new(attr_location)
+      end
+
+      def attr_location
+        json.fetch("paramType", "body")
+      end
+      attr_reader :json
 
       class Type < Base
         FIELD_TYPE = %w(string number boolean array composite)
