@@ -25,13 +25,15 @@ module Swagger2Cat
 
       def add_actions
         @apis.each do |api|
-          # TODO be more generic
+          # TODO be more generic concerning the {name}
           if api["path"].match(/\/#{@resource_name}\/{name}\/([^\/]*)$/)
+            # custom actions on resource
             action = $1
             if action.match(ACTION_REGEXP)
               add Action.new(api["operations"].first, api["path"], action)
             end
           else
+            #CRUD actions on resource
             api["operations"].each do |operation|
               add Action.new(operation, api["path"])
             end
