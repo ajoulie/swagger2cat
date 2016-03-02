@@ -57,13 +57,7 @@ class Kubernetes
   def add_pathes(resource, pathes, prefix = nil)
     media_types = spec['models']
     create_operation =pathes.first["operations"].find {|o| o["method"] == "POST"}
-    unless create_operation.nil?
-      create_body_param = create_operation["parameters"].find{|p| p["paramType"] == "body"}
-    end
-    unless create_body_param.nil?
-      model= media_types[create_body_param["type"]]
-    end
-    cat.type(resource, pathes, model, create_operation, prefix)
+    cat.type(resource, pathes, media_types, create_operation, prefix)
   end
 
   def add_kubernetes_custom
