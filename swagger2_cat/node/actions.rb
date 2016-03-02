@@ -24,21 +24,40 @@ module Swagger2Cat
       end
 
       def add_actions
+        custom_actions.each do |action, api|
+          add Action.new(api["operations"].first, api["path"], action)
+        end
+
+        crud_actions.each do |action|
+          action["operations"].each do |operation|
+            add Action.new(operation, action["path"])
+          end
+        end
+      end
+
+      private
+      # CRUD actions on resource
+      def crud_actions
+        @apis.select do |api|
+          # TODO make {name} more generic
+          api["path"].match(/\/#{@resource_name}\/{name}[\/]{0,1}$/) || api["path"].match(/\/#{@resource_name}$/)
+        end
+      end
+
+      # All actions but CRUD ones
+      def custom_actions
+        @custom_action = {}
+
         @apis.each do |api|
-          # TODO be more generic concerning the {name}
+          # TODO make {name} more generic
           if api["path"].match(/\/#{@resource_name}\/{name}\/([^\/]*)$/)
-            # custom actions on resource
             action = $1
             if action.match(ACTION_REGEXP)
-              add Action.new(api["operations"].first, api["path"], action)
-            end
-          else
-            #CRUD actions on resource
-            api["operations"].each do |operation|
-              add Action.new(operation, api["path"])
+              @custom_action[action] = api
             end
           end
         end
+        @custom_action
       end
     end
   end
