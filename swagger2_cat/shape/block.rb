@@ -3,11 +3,25 @@ module Swagger2Cat
     module Block
       def to_s(tab = 0)
         cat = []
+
+        block_comments.each do |comment|
+          cat << comment.to_s(tab)
+        end
+
         value = @value ? " \"#{@value}\"" : ""
         cat << "#{' '*tab*2}#{cat_key}#{value} do"
         cat << @children.map{|c| c.to_s(tab + 1)}
         cat << "#{' '*tab*2}end"
         cat
+      end
+
+      def comment_block(comment)
+        block_comments << Node::Comment.new(comment)
+      end
+
+      def block_comments
+        @comments ||= {}
+        @comments[:before_block] ||= []
       end
     end
 

@@ -10,7 +10,7 @@ module Swagger2Cat
 
         super(name)
 
-        comment(operation["summary"]) unless operation["summary"].empty?
+        comment_block(operation["summary"]) unless operation["summary"].empty?
         verb(operation["method"])
         path(path)
         type(operation["type"])
