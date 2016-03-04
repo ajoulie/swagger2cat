@@ -4,7 +4,7 @@ require 'json'
 require './swagger2_cat'
 require "./beta_code/kubernetes"
 
-$json = JSON.parse(File.read("kubernetes_api.json"))
+$json = JSON.parse(File.read("data/swagger/kubernetes_api.json"))
 
 $cat = []
 if ENV['DEBUG']
