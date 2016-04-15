@@ -4,6 +4,7 @@ module Swagger2Cat
       include Shape::Block
 
       def initialize(value, specs)
+        @children = []
         @specs = specs
         @value = value
       end

@@ -70,6 +70,10 @@ module Swagger2Cat
       class Verb < Base
         include Shape::Final
       end
+
+      class Path < Base
+        include Shape::Final
+      end
     end
   end
 end

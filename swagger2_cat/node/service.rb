@@ -7,8 +7,8 @@ module Swagger2Cat
       def initialize(json)
         super(value)
 
-        host(json["basePath"])
-        path(json["resourcePath"])
+        host(json)
+        path(json)
         no_cert_check(false)
       end
 

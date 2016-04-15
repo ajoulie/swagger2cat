@@ -3,6 +3,7 @@
 require 'json'
 require './swagger2_cat'
 require "./beta_code/kubernetes"
+require "./beta_code/compilation_service"
 
 $json = JSON.parse(File.read("data/swagger/kubernetes_api.json"))
 
@@ -34,3 +35,6 @@ end
 
 k = Kubernetes.new($json)
 puts k.to_s
+$json = JSON.parse(File.read("data/swagger/compilation_service.json"))
+cs =  CompilationService.new($json)
+puts cs.to_s
