@@ -1,0 +1,96 @@
+{
+  "name": "kube",
+    "service": {
+      "host": "localhost:8888",
+      "path": "/api/v1",
+      "no_cert_check": false,
+      "headers": {
+        "Api-Version": "1.0"
+      }
+    },
+    "variables": {
+      "namespace": "default"
+    },
+    "types": [
+    {
+      "name": "namespaces",
+      "href_templates": [
+        "/namespaces/:metadata.name:",
+        "/namespaces/:items[*].metadata.name:"
+        ],
+      "fields": {
+        "kind": {"type": "string", "location": "body", "alias_for": "kind"},
+        "apiVersion": {"type": "string", "location": "body", "alias_for": "apiVersion"},
+        "metadata": {"type": "composite", "location": "body", "alias_for": "metadata"},
+        "spec": {"type": "composite", "location": "body", "alias_for": "spec"},
+        "status": {"type": "composite", "location": "body", "alias_for": "status"}
+      },
+      "actions": [
+      {
+        "name": "create",
+        "path": "/namespaces"
+      },
+      {
+        "name": "get"
+      },
+      {
+        "name": "list",
+        "path": "/namespaces",
+        "output_path": "items"
+      },
+      {
+        "name": "destroy"
+      }
+      ],
+        "outputs": [
+        { "name": "name", "path": "metadata.name" },
+        { "name": "kind" },
+        { "name": "apiVersion" },
+        { "name": "metadata" },
+        { "name": "spec" },
+        { "name": "status" }
+      ]
+    },
+    {
+      "name": "pods",
+      "href_templates": [
+        "/namespaces/:metadata.namespace:/pods/:metadata.name:",
+      "/namespaces/:items[*].metadata.namespace:/pods/:items[*].metadata.name:"
+        ],
+      "provision": "provision_pod",
+      "fields": {
+        "namespace": {"type": "string", "location": "path", "alias_for": "namespace"},
+        "kind": {"type": "string", "location": "body", "alias_for": "kind"},
+        "metadata": {"type": "composite", "location": "body", "alias_for": "metadata"},
+        "spec": {"type": "composite", "location": "body", "alias_for": "spec"},
+        "status": {"type": "composite", "location": "body", "alias_for": "status"}
+      },
+      "actions": [
+      {
+        "name": "create",
+        "path": "/namespaces/$namespace/pods"
+      },
+      {
+        "name": "get"
+      },
+      {
+        "name": "list",
+        "path": "/namespaces/$namespace/pods",
+        "output_path": "items"
+      },
+      {
+        "name": "destroy"
+      }
+      ],
+        "outputs": [
+        { "name": "kind" },
+        { "name": "apiVersion" },
+        { "name": "metadata" },
+        { "name": "spec" },
+        { "name": "status" },
+        { "name": "namespace", "path": "metadata.namespace" },
+        { "name": "status_phase", "path": "status.phase" }
+      ]
+    }
+  ]
+}
